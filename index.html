@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS Design System</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+    <style>
+/* ============================================================
+   NEXUS — style.css
+   Palette:  #0D0D0F (base)  #FFFFFF (surface)
+             #6C47FF (violet accent)  #B8FF3C (lime pop)
+             #1A1A22 (card bg)  #3D3D4E (muted)
+   Type:     Space Grotesk (display) / Inter (body)
+   ============================================================ */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --clr-base:    #0D0D0F;
+  --clr-surface: #1A1A22;
+  --clr-border:  #2A2A38;
+  --clr-muted:   #3D3D4E;
+  --clr-text:    #E8E8F0;
+  --clr-subtle:  #9898AA;
+  --clr-accent:  #6C47FF;
+  --clr-lime:    #B8FF3C;
+  --clr-white:   #FFFFFF;
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --transition: 200ms ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--clr-base);
+  color: var(--clr-text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Utility ---------- */
+.container {
+  width: min(1160px, 100% - 3rem);
+  margin-inline: auto;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(14px);
+  background: rgba(13, 13, 15, 0.82);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-block: 1rem;
+}
+
+/* Logo */
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  background: var(--clr-accent);
+  color: var(--clr-white);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.logo-text {
+  font-size: 1.05rem;
+  letter-spacing: -0.03em;
+  color: var(--clr-white);
+}
+
+/* Nav links */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.nav__links a {
+  display: block;
+  padding: 0.45rem 0.85rem;
+  color: var(--clr-subtle);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav__links a:hover {
+  color: var(--clr-white);
+  background: var(--clr-surface);
+}
+
+/* CTA nav link */
+.nav__cta {
+  background: var(--clr-accent) !important;
+  color: var(--clr-white) !important;
+  padding: 0.5rem 1.1rem !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  transition: opacity var(--transition) !important;
+}
+.nav__cta:hover { opacity: 0.85; background: var(--clr-accent) !important; }
+
+/* Hamburger */
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav__toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--clr-text);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 7rem 0 8rem;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Grid background — the signature element */
+.hero__bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--clr-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--clr-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 40%, transparent 100%);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Glow blob */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 500px;
+  background: radial-gradient(ellipse, rgba(108,71,255,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto auto auto;
+  align-items: start;
+  gap: 0;
+  max-width: 680px;
+}
+
+/* Badge */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--clr-border);
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--clr-subtle);
+  background: var(--clr-surface);
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+  grid-column: 1 / 2;
+  width: fit-content;
+}
+
+/* Heading */
+.hero__heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1.07;
+  letter-spacing: -0.03em;
+  color: var(--clr-white);
+  margin-bottom: 1.5rem;
+  grid-column: 1 / 2;
+}
+
+.hero__heading--accent {
+  color: var(--clr-lime);
+}
+
+/* Subheading */
+.hero__sub {
+  font-size: 1.1rem;
+  color: var(--clr-subtle);
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  grid-column: 1 / 2;
+  line-height: 1.7;
+}
+
+/* Buttons */
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+  grid-column: 1 / 2;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity var(--transition), background var(--transition), color var(--transition);
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--clr-lime);
+  color: #0D0D0F;
+}
+.btn--primary:hover { opacity: 0.88; }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--clr-subtle);
+  border: 1px solid var(--clr-border);
+}
+.btn--ghost:hover {
+  color: var(--clr-white);
+  border-color: var(--clr-muted);
+  background: var(--clr-surface);
+}
+
+/* Social proof */
+.hero__social-proof {
+  font-size: 0.82rem;
+  color: var(--clr-muted);
+  grid-column: 1 / 2;
+}
+.hero__social-proof strong { color: var(--clr-subtle); font-weight: 500; }
+
+/* Floating card decoration */
+.hero__card {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 240px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(108,71,255,0.12);
+}
+.card-header {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 0.85rem;
+}
+.card-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.card-dot--red    { background: #FF5F57; }
+.card-dot--yellow { background: #FFBD2E; }
+.card-dot--green  { background: #28CA41; }
+
+.card-body { display: flex; flex-direction: column; gap: 0.5rem; }
+.card-line {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--clr-border);
+}
+.card-line--wide   { width: 90%; }
+.card-line--mid    { width: 65%; }
+.card-line--narrow { width: 45%; }
+.card-accent {
+  margin-top: 0.4rem;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--clr-accent), #9A72FF);
+  opacity: 0.7;
+}
+
+/* ---------- FEATURES ---------- */
+.features {
+  padding: 6rem 0 7rem;
+  border-top: 1px solid var(--clr-border);
+}
+
+.section__eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  margin-bottom: 0.75rem;
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--clr-white);
+  max-width: 520px;
+  margin-bottom: 3.5rem;
+  line-height: 1.15;
+}
+
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.feature-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.feature-card:hover {
+  border-color: var(--clr-accent);
+  transform: translateY(-3px);
+}
+
+.feature-card__icon {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--clr-white);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  color: var(--clr-subtle);
+  line-height: 1.6;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+  border-top: 1px solid var(--clr-border);
+  padding: 3rem 0 1.5rem;
+}
+
+.footer__inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer__tagline {
+  font-size: 0.85rem;
+  color: var(--clr-muted);
+  margin-top: 0.5rem;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.footer__links a {
+  display: block;
+  padding: 0.3rem 0.7rem;
+  color: var(--clr-subtle);
+  text-decoration: none;
+  font-size: 0.88rem;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition);
+}
+.footer__links a:hover { color: var(--clr-white); }
+
+.footer__social {
+  display: flex;
+  gap: 0.5rem;
+}
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-subtle);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: color var(--transition), border-color var(--transition);
+}
+.social-link:hover {
+  color: var(--clr-white);
+  border-color: var(--clr-muted);
+}
+
+.footer__copy {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--clr-muted);
+  border-top: 1px solid var(--clr-border);
+  padding-top: 1.5rem;
+}
+
+/* ============================================================
+   MEDIA QUERIES — Responsive Breakpoints
+   ============================================================ */
+
+/* --- Tablet (≤ 900px) --- */
+@media (max-width: 900px) {
+  .hero { padding: 5rem 0 6rem; }
+
+  .hero__card {
+    display: none; /* hide decorative card at tablet to give text room */
+  }
+
+  .hero__inner {
+    max-width: 100%;
+  }
+
+  .features__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- Mobile (≤ 640px) --- */
+@media (max-width: 640px) {
+  /* Nav collapse */
+  .nav__toggle { display: flex; }
+
+  .nav__links {
+    /* Hidden off-screen by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--clr-base);
+    border-bottom: 1px solid var(--clr-border);
+    padding: 0.5rem 1.25rem 1rem;
+    /* Slide in/out */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 350ms ease, padding 350ms ease;
+  }
+
+  .nav__links.is-open {
+    max-height: 400px;
+    padding: 0.75rem 1.25rem 1.25rem;
+  }
+
+  .nav__links li { width: 100%; }
+  .nav__links a   { width: 100%; padding: 0.65rem 0.5rem; }
+  .nav__cta       { text-align: center; margin-top: 0.25rem; }
+
+  /* Hero */
+  .hero { padding: 4rem 0 5rem; min-height: auto; }
+
+  .hero__heading { font-size: clamp(2rem, 9vw, 2.8rem); }
+  .hero__sub     { font-size: 1rem; }
+
+  .hero__actions { flex-direction: column; align-items: flex-start; }
+  .btn           { width: 100%; justify-content: center; }
+
+  /* Features */
+  .features { padding: 4rem 0 5rem; }
+  .features__grid { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">
+                <span class="logo-mark">N</span>
+                <span class="logo-text">NEXUS</span>
+            </a>
+            <ul class="nav__links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#docs">Docs</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact" class="nav__cta">Get Started</a></li>
+            </ul>
+            <button class="nav__toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero__bg-grid"></div>
+        <div class="container">
+            <div class="hero__inner">
+                <div class="hero__badge">
+                    <span>✨</span>
+                    <span>Modern Design System</span>
+                </div>
+                <h1 class="hero__heading">
+                    Build with <span class="hero__heading--accent">NEXUS</span>
+                </h1>
+                <p class="hero__sub">
+                    A sleek, modern CSS design system built for high-performance interfaces with beautiful aesthetics and smooth interactions.
+                </p>
+                <div class="hero__actions">
+                    <button class="btn btn--primary">Get Started</button>
+                    <button class="btn btn--ghost">Learn More</button>
+                </div>
+                <p class="hero__social-proof">
+                    <strong>500+</strong> developers building with NEXUS
+                </p>
+            </div>
+
+            <!-- Decorative card -->
+            <div class="hero__card">
+                <div class="card-header">
+                    <div class="card-dot card-dot--red"></div>
+                    <div class="card-dot card-dot--yellow"></div>
+                    <div class="card-dot card-dot--green"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-line card-line--wide"></div>
+                    <div class="card-line card-line--mid"></div>
+                    <div class="card-line card-line--narrow"></div>
+                    <div class="card-accent"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="container">
+            <p class="section__eyebrow">Why NEXUS</p>
+            <h2 class="section__title">Beautiful, functional components</h2>
+            <div class="features__grid">
+                <div class="feature-card">
+                    <span class="feature-card__icon">🎨</span>
+                    <h3>Modern Aesthetics</h3>
+                    <p>Contemporary design with dark mode optimized for visual comfort and minimal eye strain.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card__icon">⚡</span>
+                    <h3>Performance First</h3>
+                    <p>Lightweight CSS with zero dependencies. Fast load times and smooth 60fps interactions.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card__icon">🔧</span>
+                    <h3>Easy Customization</h3>
+                    <p>CSS variables throughout. Adjust colors, spacing, and typography with a single change.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card__icon">📱</span>
+                    <h3>Responsive Design</h3>
+                    <p>Mobile-first approach with breakpoints that adapt beautifully to any screen size.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card__icon">♿</span>
+                    <h3>Accessible</h3>
+                    <p>Built with semantic HTML and WCAG guidelines. Inclusive by default, not by afterthought.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-card__icon">🚀</span>
+                    <h3>Production Ready</h3>
+                    <p>Battle-tested components ready for real-world applications and demanding workflows.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div>
+                    <a href="#" class="nav__logo" style="display: flex;">
+                        <span class="logo-mark">N</span>
+                        <span class="logo-text">NEXUS</span>
+                    </a>
+                    <p class="footer__tagline">Modern design system for the web</p>
+                </div>
+                <div class="footer__links">
+                    <a href="#">Documentation</a>
+                    <a href="#">Components</a>
+                    <a href="#">Changelog</a>
+                    <a href="#">GitHub</a>
+                </div>
+                <div class="footer__social">
+                    <a href="#" class="social-link" title="Twitter">𝕏</a>
+                    <a href="#" class="social-link" title="GitHub">⚙</a>
+                    <a href="#" class="social-link" title="Discord">💬</a>
+                </div>
+            </div>
+            <p class="footer__copy">&copy; 2024 NEXUS Design System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const toggle = document.querySelector('.nav__toggle');
+        const links = document.querySelector('.nav__links');
+        
+        toggle.addEventListener('click', function() {
+            links.classList.toggle('is-open');
+        });
+
+        // Close menu when link is clicked
+        links.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                links.classList.remove('is-open');
+            });
+        });
+    </script>
+
+</body>
+</html>
